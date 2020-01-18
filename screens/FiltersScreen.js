@@ -3,6 +3,8 @@ import { View, Text, Switch, StyleSheet } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton'
 import Colors from '../constants/colors';
+import {useDispatch} from 'react-redux';
+import { setFilters } from '../store/actions/meals';
 
 const FilterSwitch = props => {
 
@@ -26,23 +28,27 @@ const FiltersScreen = props => {
     // object destructuring props.navigation into navigation
     const { navigation } = props;
 
-    const [isGluttenFree, setIsGluttenFree] = useState(false);
+    const [isGlutenFree, setIsGlutenFree] = useState(false);
     const [isLactoseFree, setIsLactoseFree] = useState(false);
     const [isVegan, setIsVegan] = useState(false);
     const [isVegetarian, setIsVegetarian] = useState(false);
+
+    const dispatch = useDispatch();
 
     // this function will be created only if its dependencies change
     // no matter if the component is re-created
     const saveFilters = useCallback(() => {
 
         const appliedFilters = {
-            gluttenFree: isGluttenFree,
+            glutenFree: isGlutenFree,
             lactoseFree: isLactoseFree,
             vegan: isVegan,
             vegetarian: isVegetarian
         }
 
-    }, [isGluttenFree, isLactoseFree, isVegan, isVegetarian]); //array of dependecies
+        dispatch(setFilters(appliedFilters));
+
+    }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian, dispatch]); //array of dependecies
 
     // communicating between my component and the navigation
     useEffect(() => {
@@ -53,9 +59,9 @@ const FiltersScreen = props => {
         <View style={styles.screen}>
             <Text style={styles.title}>Available Filters</Text>
             <FilterSwitch 
-                label="Glutten-free"
-                state={isGluttenFree}
-                onChange={setIsGluttenFree}
+                label="Gluten-free"
+                state={isGlutenFree}
+                onChange={setIsGlutenFree}
             />
             <FilterSwitch 
                 label="Lactose-free"

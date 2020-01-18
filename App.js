@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import { enableScreens } from 'react-native-screens';
@@ -9,7 +8,6 @@ import { Provider } from 'react-redux';
 import MealsNavigator from './navigation/MealsNavigator';
 
 import mealsReducer from './store/reducers/meals';
-import { createStackNavigator } from 'react-navigation-stack';
 
 // improve the performance for rendering screens into mobile devices
 enableScreens();
@@ -45,12 +43,3 @@ export default function App() {
     <Provider store={store}><MealsNavigator/></Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
